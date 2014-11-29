@@ -6,7 +6,7 @@
 
 package Ventanas;
 
-import Jugador.JugadorExistente;
+//stente;
 import java.awt.Color;
 import laberinto.ArchivoTexto;
 import laberinto.MatrizLogica;
@@ -25,13 +25,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     public PantallaPrincipal() {
         initComponents();
         this.getContentPane().setBackground(Color.CYAN);
-          setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
         //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
     
       public static int[][] matriz = {
-        {0, 1, 1, 1, 1, 1, 0, 0, 1, 1},
+        {0, 1, 1, 1, 1, 1, 0, 0, 1, 3},
         {0, 1, 0, 1, 0, 1, 1, 1, 1, 0},
         {0, 1, 1, 0, 0, 0, 0, 0, 1, 0},
         {0, 0, 1, 0, 1, 1, 1, 0, 1, 0},
@@ -155,7 +155,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        
+         
+       
+
+        ArchivoTexto a = new ArchivoTexto();
+     int[][]  l = a.leer("Tablero1F.txt");
+//      graphics.getInstance(l, 10, 0, 310, 310, 4);
+       MatrizLogica ma = new MatrizLogica(matriz);
+System.out.println(l);
+
+      
+        //this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

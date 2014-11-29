@@ -23,26 +23,51 @@ import javax.swing.JOptionPane;
 
 public class graphics extends JDialog {
 
-//    public static final int CANTIDAD_COLUMNAS = 10;
-//    private static final int CANTIDAD_FILAS = 10;
-//    public static final int TAMANO_PIEZA = 0;
-//    public static final int ANCHO_PANEL = 310;
-//    public static final int ALTO_PANEL = 310;
-//    public static final int ANCHO_SOMBRA = 4;
+//    public static final int CANTIDAD_COLUMNAS = 10;x
+//    private static final int CANTIDAD_FILAS = 10;x
+//    public static final int TAMANO_PIEZA = 0;x
+//    public static final int ANCHO_PANEL = 310;xx
+//    public static final int ALTO_PANEL = 310;xx
+//    public static final int ANCHO_SOMBRA = 4;x
     public static int x, y;
     private Image dbImage;
     private Graphics dbg;
     public static graphics g;
     public MatrizLogica ml;
+    public static String tiempo = " ";
+
+    private class HiloTiempo extends Thread {
+
+        @Override
+        public void run() {
+            int cont = 0;
+            while (true) {
+                tiempo = " Tiempo" + cont;
+                System.out.println("tiempo"+tiempo);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(graphics.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                cont++;
+            }
+
+        }
+    }
+    
+  public  static String getTiempo(){
+      return tiempo;
+  }
+    
 
     public static graphics nuevaIntancia() {
-        return g = new graphics(cantidadColumnas, cantidadFilas, tamanoPieza, anchoPanel, altoPanel, anchoSombra);
+        return g = new graphics();
     }
 
-    public static graphics getInstance(int cantidadColumnas, int cantidadFilas, int tamanoPieza, int anchoPanel, int altoPanel, int anchoSombra) {
+    public static graphics getInstance() {
 
         if (g == null) {
-            return g = new graphics(cantidadColumnas, cantidadFilas, tamanoPieza, anchoPanel, altoPanel, anchoSombra);
+            return g = new graphics();
         }
         return g;
     }
@@ -53,29 +78,26 @@ public class graphics extends JDialog {
     private static int cantidadFilas;
     private static int tamanoPieza;
     private static int anchoSombra;
+    Thread miThread;
+    HiloTiempo miHilo;
 
-    private graphics(int cantidadColumnas, int cantidadFilas, int tamanoPieza, int anchoPanel, int altoPanel, int anchoSombra) {
-
-        this.cantidadColumnas = cantidadColumnas;
-        this.cantidadFilas = cantidadFilas;
-        this.tamanoPieza = tamanoPieza;
-        this.anchoPanel = anchoPanel;
-        this.altoPanel = altoPanel;
-        addKeyListener(new Controles());
-        setVisible(true);
-        setBackground(Color.CYAN);
-        setTitle("Laberinto");
-        setSize(graphics.anchoPanel + 10, altoPanel + 30);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    private graphics() {
         x = 10;
         y = 180;
+        miHilo = new HiloTiempo();
+        miThread = new Thread(miHilo);
+    }
+
+    public void setAltoAncho(int alto, int ancho) {
+        anchoPanel = ancho;
+        altoPanel = alto;
     }
 
     public void paint(Graphics g) {
         ml = new MatrizLogica();
         dbImage = createImage(getWidth(), getHeight());
         dbg = dbImage.getGraphics();
+        
         try {
             paintComponent(dbg);
         } catch (InterruptedException ex) {
@@ -99,22 +121,41 @@ public class graphics extends JDialog {
     }
 
     public void dibujarl(Graphics g) throws Exception {
-        g.setColor(Color.BLUE);
+        
+        g.setColor(new Color(255, 128, 0));
         g.fillRect(x, y, 30, 30);
         dibujarLaberinto(g, ml.getMatriz());
 
     }
 
     public void dibujarLaberinto(Graphics g, int[][] matriz) {
-        g.setColor(Color.BLACK);
+//        g.setColor(Color.BLACK);
+        getTiempo();
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 if (matriz[i][j] == 0) {
+                    g.setColor(new Color(14, 85, 165));
                     g.fillRect(10 + (j * 30), 30 + (i * 30), 30, 30);
                 }
+
             }
 
         }
     }
 
+    public void metodo(int cantidadColumnas, int cantidadFilas, int tamanoPieza, int anchoPanel, int altoPanel, int anchoSombra) {
+
+    }
+
+    public void go() {
+
+        addKeyListener(new Controles());
+        setVisible(true);
+        setBackground(new Color(192, 192, 192));
+        setTitle("Laberinto");
+        setSize(graphics.anchoPanel * 31, altoPanel * 32);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+    }
 }

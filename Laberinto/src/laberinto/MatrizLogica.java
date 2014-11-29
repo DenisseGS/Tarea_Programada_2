@@ -5,6 +5,8 @@
  */
 package laberinto;
 
+import javax.swing.JOptionPane;
+
 /**
  * @author Brando
  * @author Ale.
@@ -50,6 +52,11 @@ public class MatrizLogica {
         return matriz;
     }
 
+    public static void setPosition(int x, int y){
+        graphics.x = x;
+        graphics.y = y;
+    }
+    
     public static boolean validarArriba() {
         if (graphics.y > 30 && matriz[(graphics.y / 30) - 2][graphics.x / 30] != 0) {
             return true;
@@ -77,12 +84,21 @@ public class MatrizLogica {
 
     public static boolean validarDerecha() {
         if (graphics.x < 280) {
-            if (matriz[(graphics.y / 31)][(graphics.x / 30) + 1] != 0) {
+            if (matriz[(graphics.y / 31)][(graphics.x / 30) + 1] != 0 ) {
                 return true;
             }
         }
         return false;
 
     }
+    public static boolean gane(){
 
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[(graphics.y / 31)][(graphics.x / 30)] == 3) {
+                    return true;
+                }
+            }        }  
+         return false;
+}
 }

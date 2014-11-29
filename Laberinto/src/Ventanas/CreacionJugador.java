@@ -36,8 +36,8 @@ public class CreacionJugador extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().setBackground(Color.CYAN);
         this.setSize(400, 350);
-         setLocationRelativeTo(null);
-        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
 

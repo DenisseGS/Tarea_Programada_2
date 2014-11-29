@@ -107,13 +107,16 @@ public class PantallaInstrucciones extends javax.swing.JFrame {
         
         
         
-        graphics.getInstance(10, 10, 0, 310, 310, 4);
-
         ArchivoTexto a = new ArchivoTexto();
-        String l = a.leer("Tablero1F.txt");
-        System.out.println(l);
+        int[][] tablero = a.leer("Tablero1D.txt");
+        System.out.println(tablero + "  -- PantallaInsctrucciones");
 
-        MatrizLogica ma = new MatrizLogica(matriz);
+        MatrizLogica ma = new MatrizLogica(tablero);
+        
+        graphics g = graphics.getInstance();
+        g.setAltoAncho(tablero.length, tablero[0].length);
+        g.go();
+       
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
