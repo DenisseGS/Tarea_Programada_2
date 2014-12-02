@@ -8,6 +8,7 @@ package laberinto;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import static laberinto.Cronometro.tiempo;
 import static laberinto.MatrizLogica.matriz;
 
 /**
@@ -22,6 +23,7 @@ import static laberinto.MatrizLogica.matriz;
  */
 public class Controles extends KeyAdapter {
 
+    public static String tiempoGane = " ";
     public static int n = 1;
     public static Registro registro = Registro.getInstance();
 
@@ -34,59 +36,55 @@ public class Controles extends KeyAdapter {
 
         if (keyCode == e.VK_LEFT) {
              if (MatrizLogica.gane() == true) {
-
-                JOptionPane.showMessageDialog(null, "Ganoooo");
+                 Cronometro.gano=true;
+                 tiempoGane = tiempo;
+                 
+                 JOptionPane.showMessageDialog(null,"Felicidades ganó"+"\nSu tiempo es de:" + tiempoGane);
             }
              if (MatrizLogica.validarIzquierda()) {
                 graphics.x -= 30;
                 verificarIncognitas();
              }
-//            System.out.println("x: " + graphics.x + " y=" + graphics.y);
+        }
+
 
            
             
-        }
+        
         if (keyCode == e.VK_RIGHT) {
             if (MatrizLogica.gane() == true) {
-
-                JOptionPane.showMessageDialog(null, "Ganoooo");
+               tiempoGane = tiempo;
+                 JOptionPane.showMessageDialog(null,"Felicidades ganó"+"\nSu tiempo es de:" + tiempoGane);
             }
             if (MatrizLogica.validarDerecha()) {
-            graphics.x += 30;
-            verificarIncognitas();
+                graphics.x += 30;
+                verificarIncognitas();
             }
-//            System.out.println("x: " + graphics.x + " y=" + graphics.y);
-            
-            
+
+
         }
         if (keyCode == e.VK_UP) {
-             if (MatrizLogica.gane() == true) {
-
-                JOptionPane.showMessageDialog(null, "Ganoooo");
+            if (MatrizLogica.gane() == true) {
+                 tiempoGane = tiempo;
+                 JOptionPane.showMessageDialog(null,"Felicidades ganó"+"\nSu tiempo es de:" + tiempoGane);
             }
-                 if (MatrizLogica.validarArriba()) {
-            graphics.y -= 30;
-            verificarIncognitas();
-                 }
-//            System.out.println("x: " + graphics.x + " y=" + graphics.y);
-           
-            
+            if (MatrizLogica.validarArriba()) {
+                graphics.y -= 30;
+                verificarIncognitas();
+            }
         }
-        if (keyCode == e.VK_DOWN) {
-            
-             if (MatrizLogica.gane() == true) {
+          if (keyCode == e.VK_DOWN) {
 
-                JOptionPane.showMessageDialog(null, "Ganoooo");
-          }
-             if (MatrizLogica.validarAbajo()) {
-            graphics.y += 30;
-            verificarIncognitas();
-             }
-//            System.out.println("x: " + graphics.x + " y=" + graphics.y);
-           
-            
-        }
-        //System.out.println("x: " + graphics.x + " y=" + graphics.y);
+            if (MatrizLogica.gane() == true) {
+                 tiempoGane = tiempo;
+                 JOptionPane.showMessageDialog(null,"Felicidades ganó"+"\nSu tiempo es de:" + tiempoGane);
+            }
+            if (MatrizLogica.validarAbajo()) {
+                graphics.y += 30;
+                verificarIncognitas();
+            }
+            }
+    
         if(registro.size() == 0){
             registro.registar(10, 180);
         }
@@ -94,6 +92,7 @@ public class Controles extends KeyAdapter {
             registro.registar(graphics.x, graphics.y);
         }
     }
+    
     
     public void verificarIncognitas(){
         int valor = MatrizLogica.matriz[(graphics.y / 30) - 1][graphics.x / 30];
@@ -108,4 +107,5 @@ public class Controles extends KeyAdapter {
             MatrizLogica.setPosition(registros[0], registros[1]);
         }
     }
+
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Jugador;
 
 /**
@@ -89,7 +88,8 @@ public class AccesoAleatorio {
         }
         return 2;
     }
-        public static int buscarRegistroExist(String nombre, String contrasena) throws IOException {
+
+    public static int buscarRegistroExist(String nombre, String contrasena) throws IOException {
         Jugador j;
         if (nombre == null && contrasena == null) {
             return -1;

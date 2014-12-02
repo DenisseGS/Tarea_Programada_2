@@ -6,6 +6,29 @@ package laberinto;
 
 import Ventanas.PantallaPrincipal;
 
+
+
+/**
+ * Universidad de Costa Rica
+ * IF-2000 Programación I
+ * Andrey Porras Rojas
+ * Alejandra Anchía  P.
+ * Brando Corrales G.
+ * Denisse González S.
+ * 
+ * B30388
+ * B22061
+ * B33029
+ * 01/12/14
+ *------------------------------------------------------------------------------
+ *Modificado por: <Alejandra Anchía  P,Brando Corrales G,Denisse González S>
+ * Fecha de modificación: < 26/11/2014>
+ *------------------------------------------------------------------------------
+ *Recomendaciones que debe seguir si usted modifica este código:
+ * <.........>
+ */
+
+
 /**
  *
  * @author Brando
@@ -22,6 +45,7 @@ public class Laberinto {
          
         PantallaPrincipal ventana =new PantallaPrincipal();
         ventana.setVisible(true);
+       
        //  Thread
     }
 }

@@ -9,6 +9,7 @@ package Ventanas;
 import static Ventanas.PantallaPrincipal.matriz;
 import java.awt.Color;
 import laberinto.ArchivoTexto;
+import laberinto.Cronometro;
 import laberinto.MatrizLogica;
 import laberinto.graphics;
 
@@ -38,6 +39,7 @@ public class PantallaInstrucciones extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jC_dificultad = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,21 +63,31 @@ public class PantallaInstrucciones extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/play.jpg"))); // NOI18N
 
+        jC_dificultad.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jC_dificultad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fácil", "Medio", "Dificíl" }));
+        jC_dificultad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jC_dificultadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addGap(31, 31, 31))))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jC_dificultad, 0, 171, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(31, 31, 31))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,10 +95,12 @@ public class PantallaInstrucciones extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(104, 104, 104))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jC_dificultad))
+                .addGap(26, 26, 26)
+                .addComponent(jButton1)
+                .addGap(56, 56, 56))
         );
 
         pack();
@@ -105,20 +119,97 @@ public class PantallaInstrucciones extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
+        String nombreArchivo = " ";
         
-        
-        ArchivoTexto a = new ArchivoTexto();
-        int[][] tablero = a.leer("Tablero1D.txt");
-        System.out.println(tablero + "  -- PantallaInsctrucciones");
+        if (jC_dificultad.getSelectedIndex()==0) {
+            int facil=(int)(Math.random()*2)+1;
+            
+            
+            if (facil ==1) {
+                nombreArchivo = "Tablero1F.txt";
+                
+            }else if (facil==2) {
+                nombreArchivo = "Tablero2F.txt";
+                
+            }
+            System.out.println("nombreArchivo"+nombreArchivo+ "facil"+facil);
+            ArchivoTexto a = new ArchivoTexto();
+            int[][] tablero = a.leer(nombreArchivo);
+            System.out.println(tablero + "  -- PantallaInsctrucciones");
 
-        MatrizLogica ma = new MatrizLogica(tablero);
+            MatrizLogica ma = new MatrizLogica(tablero);
+            new Thread(new Cronometro()).start();
+            graphics g = graphics.getInstance();
+            g.setAltoAncho(tablero.length, tablero[0].length);
+            g.go();
+            
+        }else if (jC_dificultad.getSelectedIndex()==1) {
+            int medio= (int)(Math.random()*(4-3))+3;
+            
+            if (medio ==3) {
+                nombreArchivo = "Tablero1M.txt";
+                
+            }else if (medio==4) {
+                nombreArchivo = "Tablero2M.txt";
+                
+            }
+            ArchivoTexto a = new ArchivoTexto();
+            int[][] tablero = a.leer(nombreArchivo);
+            System.out.println(tablero + "  -- PantallaInsctrucciones");
+
+            MatrizLogica ma = new MatrizLogica(tablero);
+            new Thread(new Cronometro()).start();
+            graphics g = graphics.getInstance();
+            g.setAltoAncho(tablero.length, tablero[0].length);
+            g.go();
+            
+          }else if (jC_dificultad.getSelectedIndex()==2) {
+               int dificil= (int)(Math.random()*(6-5))+5;
+              
+               if (dificil==5) {
+                nombreArchivo = "Tablero1D.txt";
+                
+            }else if (dificil==6) {
+                nombreArchivo = "Tablero2D.txt";
+                
+            }
+          ArchivoTexto a = new ArchivoTexto();
+            int[][] tablero = a.leer("Tablero1D.txt");
+            System.out.println(tablero + "  -- PantallaInsctrucciones");
+
+            MatrizLogica ma = new MatrizLogica(tablero);
+            new Thread(new Cronometro()).start();
+            graphics g = graphics.getInstance();
+            g.setAltoAncho(tablero.length, tablero[0].length);
+            g.go();
+          }
         
-        graphics g = graphics.getInstance();
-        g.setAltoAncho(tablero.length, tablero[0].length);
-        g.go();
-       
+         
+        
+//        ArchivoTexto a = new ArchivoTexto();
+//        int[][] tablero = a.leer("Tablero1F.txt");
+//        System.out.println(tablero + "  -- PantallaInsctrucciones");
+//
+//        MatrizLogica ma = new MatrizLogica(tablero);
+//        new Thread (new Cronometro()).start();
+//        graphics g = graphics.getInstance();
+//        g.setAltoAncho(tablero.length, tablero[0].length);
+//        g.go();
+        
+        
+        
+        
+        
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jC_dificultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jC_dificultadActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        
+    }//GEN-LAST:event_jC_dificultadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,6 +249,7 @@ public class PantallaInstrucciones extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jC_dificultad;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

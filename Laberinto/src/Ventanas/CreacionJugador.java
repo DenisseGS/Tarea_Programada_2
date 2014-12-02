@@ -27,6 +27,8 @@ import laberinto.graphics;
 public class CreacionJugador extends javax.swing.JFrame {
 
     private JPasswordField campoContrasenia;
+      
+    MatrizLogica ma = new MatrizLogica();
 
     /**
      * Creates new form CreacionJugador
@@ -122,7 +124,8 @@ public class CreacionJugador extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
 
-        String nombre = jT_Nickname.getText().trim();
+         String nombre = jT_Nickname.getText().trim();
+         ma.setNombre(nombre);
         if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se ingreso el nombre");
             return;

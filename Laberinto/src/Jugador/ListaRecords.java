@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Jugador;
 
 import java.util.ArrayList;
@@ -14,95 +13,75 @@ import java.util.List;
  * @author Ale
  */
 public class ListaRecords {
-    
-    
-     private static ArrayList<Records> listaRecords = new ArrayList<>();
-     
-      private  static ListaRecords unicainstancia;
+
+    public static ArrayList<Records> listaRecords = new ArrayList<>();
+
+    private static ListaRecords unicainstancia;
 
     public ListaRecords() {
     }
-    
-    
-     /**
- * Metodo que realiza una solo instacia de la clase, mediante
- * el uso del patron Singleton.
- * 
- * @return instancia unica de la clase ListaRecords
- *
- */
-    public static ListaRecords getInstance()
-    {
-        if(unicainstancia == null){
-            synchronized(ListaRecords.class){
-                if(unicainstancia == null){
-                    unicainstancia= new ListaRecords();
+
+    /**
+     * Metodo que realiza una solo instacia de la clase, mediante el uso del
+     * patron Singleton.
+     *
+     * @return instancia unica de la clase ListaRecords
+     *
+     */
+    public static ListaRecords getInstance() {
+        if (unicainstancia == null) {
+            synchronized (ListaRecords.class) {
+                if (unicainstancia == null) {
+                    unicainstancia = new ListaRecords();
                 }
             }
         }
         return unicainstancia;
     }
-    
-    
-     
- /**
- * Metodo que retorna la lista de records
- * @return lista de los records.
- *
- */
 
-  
-
-    public List<Records> getListaJugador(){
+    /**
+     * Metodo que retorna la lista de records
+     *
+     * @return lista de los records.
+     *
+     */
+    public List<Records> getListaJugador() {
         return listaRecords;
     }
-    
- /**
- * Metodo proporciona el tamaño de la lista de records.
- * @return tamaño de la lista.
- *
- */
-    public static int tamano(){
-    return listaRecords.size();
+
+    /**
+     * Metodo proporciona el tamaño de la lista de records.
+     *
+     * @return tamaño de la lista.
+     *
+     */
+    public static int tamano() {
+        return listaRecords.size();
     }
-    
- /**
- * Metodo que se encarga de devolver un jugador de una determinada posición
- * en la lista.
- * @return al jugador de la posición indicada en la lista.
- *
- */
+
+    /**
+     * Metodo que se encarga de devolver un jugador de una determinada posición
+     * en la lista.
+     *
+     * @return al jugador de la posición indicada en la lista.
+     *
+     */
     public Records devuelveJugador(int posicion) {
         //Collections.sort(listaRecords);
         return listaRecords.get(posicion);
     }
-     
-    
-     public boolean consultarJugador(String seudonimo) {
+
+    public boolean consultarJugador(String seudonimo) {
         for (int i = 0; i < listaRecords.size(); i++) {
-            Records j = (Records)listaRecords.get(i);
+            Records j = (Records) listaRecords.get(i);
             if (j.getNombre() != null && j.getNombre().contains(seudonimo)) {
-               return true;
+                return true;
             }
         }
         return false;
     }
-    
-    
-    
-    
-    
-    
-    
- /**
- * Metodo que se encarga de insertar un jugador en la lista.
- * @return una variable boolean en caso de haberse insertado exitosamente 
- * devolvera un true, de caso contrario un false.
- *
- */
-    
-    
-     public boolean insertarJugador(Records records) {
+
+    public boolean insertarJugador(Records records) {
         Records j = (Records) records;
         if (consultarJugador(j.getNombre()) != true) {
             if (listaRecords.add(records)) {
@@ -115,6 +94,5 @@ public class ListaRecords {
         }
 
     }
-    
-    
+
 }

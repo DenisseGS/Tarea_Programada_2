@@ -81,13 +81,6 @@ public class ArchivoTexto {
         return null;
 
     }
-//      
-//      public static void anadirAlVector(int num){
-//      if(){
-//          
-//      }
-//              vector
-//         
-//      }
+
 
 }

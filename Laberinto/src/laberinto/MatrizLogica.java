@@ -5,7 +5,13 @@
  */
 package laberinto;
 
+import Jugador.ArchivoBinario;
+import Jugador.Jugador;
+import static Jugador.ListaRecords.listaRecords;
+import Jugador.Records;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import static laberinto.Cronometro.tiempo;
 
 /**
  * @author Brando
@@ -17,8 +23,11 @@ public class MatrizLogica {
 
     int contarCasillas = 0;
     public static int[][] matriz;
+     private static  String nombre;
 
-    public MatrizLogica(int[][] matriz) {
+   
+
+    public MatrizLogica(int[][] matriz ) {
 
         this.matriz = matriz;
     }
@@ -38,6 +47,9 @@ public class MatrizLogica {
         return hilera;
     }
 
+     public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     public void borrar() {
         for (int i = matriz.length - 1; i >= 0; i--) {
             for (int j = matriz[i].length - 1; j >= 0; j--) {
@@ -96,7 +108,13 @@ public class MatrizLogica {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 if (matriz[(graphics.y / 31)][(graphics.x / 30)] == 3) {
+                    listaRecords.add(new Records(nombre, tiempo));
+                    ArchivoBinario ab = new ArchivoBinario();
+                    ab.createFiles();
+                    ///ab.writeFiles();
+                    System.out.println(ab.readFiles());
                     return true;
+                    
                 }
             }        }  
          return false;

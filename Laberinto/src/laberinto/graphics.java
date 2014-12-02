@@ -20,6 +20,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import static laberinto.Cronometro.tiempo;
 
 public class graphics extends JDialog {
 
@@ -34,31 +35,6 @@ public class graphics extends JDialog {
     private Graphics dbg;
     public static graphics g;
     public MatrizLogica ml;
-    public static String tiempo = " ";
-
-    private class HiloTiempo extends Thread {
-
-        @Override
-        public void run() {
-            int cont = 0;
-            while (true) {
-                tiempo = " Tiempo" + cont;
-                System.out.println("tiempo"+tiempo);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(graphics.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                cont++;
-            }
-
-        }
-    }
-    
-  public  static String getTiempo(){
-      return tiempo;
-  }
-    
 
     public static graphics nuevaIntancia() {
         return g = new graphics();
@@ -78,14 +54,11 @@ public class graphics extends JDialog {
     private static int cantidadFilas;
     private static int tamanoPieza;
     private static int anchoSombra;
-    Thread miThread;
-    HiloTiempo miHilo;
 
     private graphics() {
         x = 10;
         y = 180;
-        miHilo = new HiloTiempo();
-        miThread = new Thread(miHilo);
+
     }
 
     public void setAltoAncho(int alto, int ancho) {
@@ -97,7 +70,7 @@ public class graphics extends JDialog {
         ml = new MatrizLogica();
         dbImage = createImage(getWidth(), getHeight());
         dbg = dbImage.getGraphics();
-        
+
         try {
             paintComponent(dbg);
         } catch (InterruptedException ex) {
@@ -115,13 +88,14 @@ public class graphics extends JDialog {
             for (int y = 0; y <= cantidadFilas; y++) {
                 g.drawLine(10, y * tamanoPieza, cantidadColumnas * tamanoPieza + 10, y * tamanoPieza);
                 g.drawLine(x * tamanoPieza + 10, 0 + 30, x * tamanoPieza + 10, cantidadFilas * tamanoPieza);
+                g.drawString(tiempo, 8, 60);
             }
         }
         dibujarl(g);
     }
 
     public void dibujarl(Graphics g) throws Exception {
-        
+
         g.setColor(new Color(255, 128, 0));
         g.fillRect(x, y, 30, 30);
         dibujarLaberinto(g, ml.getMatriz());
@@ -129,8 +103,6 @@ public class graphics extends JDialog {
     }
 
     public void dibujarLaberinto(Graphics g, int[][] matriz) {
-//        g.setColor(Color.BLACK);
-        getTiempo();
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 if (matriz[i][j] == 0) {
@@ -143,10 +115,9 @@ public class graphics extends JDialog {
         }
     }
 
-    public void metodo(int cantidadColumnas, int cantidadFilas, int tamanoPieza, int anchoPanel, int altoPanel, int anchoSombra) {
-
-    }
-
+//    public void metodo(int cantidadColumnas, int cantidadFilas, int tamanoPieza, int anchoPanel, int altoPanel, int anchoSombra) {
+//
+//    }
     public void go() {
 
         addKeyListener(new Controles());
